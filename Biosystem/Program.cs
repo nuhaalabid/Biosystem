@@ -56,52 +56,74 @@ class Program
                             }
                         }
                     }
-
                     break;
 
                 // Menyval 2 Räkna pris för ett helt sällskap
                 case "2":
-
                     Console.WriteLine("Hur många personer är ni?");
-                    // Läser antal personer
                     string antalInput = Console.ReadLine();
 
-                    int antalPersoner = int.Parse(antalInput);
-
-                    int totalPris = 0;
-                    // For loop som körs en gång för varje person
-                    for (int i = 1; i <= antalPersoner; i++)
+                    // Validerar att input är ett nummer
+                    bool giltigtAntal = int.TryParse(antalInput, out int antalPersoner);
+                    // Om användaren skriver fel input
+                    if (!giltigtAntal)
                     {
-                        Console.WriteLine("Ange ålder för person " + i + ":");
-
-                        string personÅlderInput = Console.ReadLine();
-
-                        int personÅlder = int.Parse(personÅlderInput);
-
-                        if (personÅlder < 20)
-                        {
-                            totalPris += 80;
-                        }
-                        else if (personÅlder > 64)
-                        {
-                            totalPris += 90;
-                        }
-                        else
-                        {
-                            totalPris += 120;
-                        }
+                      Console.WriteLine("Du måste skriva antal personer med siffror.");
                     }
-                    // Skriver ut antal personer
-                    Console.WriteLine("Antal personer: " + antalPersoner);
-                    // Skriver ut totalkostnad
-                    Console.WriteLine("Totalkostnad: " + totalPris + "kr");
+                    // Om användaren skriver 0 eller negativt tal
+                    else if (antalPersoner <= 0)
+                    {
+                        Console.WriteLine("Antal personer måste vara minst 1.");
+                    }
+                    else
+                    {
+                        // Variabel som sparar totalpriset
+                        int totalPris = 0;
 
+                        // For loop som körs för varje person
+                        for (int i = 1; i <= antalPersoner; i++)
+                        {
+                            // Frågar efter ålder för varje person
+                            Console.WriteLine("Ange ålder för person " + i + ":");
+
+                            string personÅlderInput = Console.ReadLine();
+                            // Validerar att åldern är ett nummer
+                            bool giltigPersonÅlder = int.TryParse(personÅlderInput, out int personÅlder);
+                            // Om användaren skriver fel input
+                            if (!giltigPersonÅlder)
+                            {
+                              Console.WriteLine("Du måste skriva åldern med siffror.");
+                            }
+                            // Om användaren skriver negativ ålder
+                            else if (personÅlder < 0)
+                            {
+                                Console.WriteLine("Ålder kan inte vara negativ.");
+                            }
+                            else
+                            {
+                                if (personÅlder < 20)
+                                {
+                                    totalPris += 80;
+                                }
+                                else if (personÅlder > 64)
+                                {
+                                    totalPris += 90;
+                                }
+                                else
+                                {
+                                    totalPris += 120;
+                                }
+                            }
+                        }
+                        // Skriver ut resultet för hela sällskaptet
+                        Console.WriteLine("Antal personer: " + antalPersoner);
+                        Console.WriteLine("Totalkostnad: " + totalPris + "kr");
+                    }
                     break;
 
                 // Menyval 3 Upprepa text tio gånger
                 case "3":
                     Console.WriteLine("Skriv en text:");
-
                     string input = Console.ReadLine();
 
                     // For loop som upprepar texten tio gånger
@@ -112,20 +134,16 @@ class Program
                     }
                     // Skapar ny rad efter loopen
                     Console.WriteLine();
-
                     break;
 
                 // Menyval 4 Visa tredje ordet
                 case "4":
-
                     Console.WriteLine("Skriv en mening med minst tre ord:");
-
                     var mening = Console.ReadLine();
                     // Delar upp meningen vid varje mellanslag
                     var ord = mening.Split(' ');
                     // Skriver ut det tredje ordet
                     Console.WriteLine("Det tredje ordet är: " + ord[2]);
-
                     break;
 
                 // Menyval 0 Avsluta programmet
