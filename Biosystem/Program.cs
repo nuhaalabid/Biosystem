@@ -24,27 +24,39 @@ class Program
                // Menyval 1,Kontrollera biljettpris för en person
                 case "1":
                     Console.WriteLine("Ange din ålder:");
-                    string ålderInput = Console.ReadLine();
-                    // Konverterar string till int
-                    int ålder = int.Parse(ålderInput);
 
-                    if (ålder < 20)
+                    // Läser användarens input
+                    string ålderInput = Console.ReadLine();
+
+                    // Validerar input med TryParse 
+                    // Programmet kontrollerar om användaren skrivit ett nummer
+                    bool giltigÅlder = int.TryParse(ålderInput, out int ålder);
+
+                    // Om användaren inte skriver ett giltigt nummer
+                    if (!giltigÅlder)
                     {
-                        Console.WriteLine("Ungdomspris: 80kr");
+                        Console.WriteLine("Fel input. Du måste skriva ett nummer.");
                     }
                     else
                     {
-                        // Nästlad if-sats som kontrollerar pensionär
-                        if (ålder > 64)
+                        if (ålder < 20)
                         {
-                            Console.WriteLine("Pensionärspris: 90kr");
+                            Console.WriteLine("Ungdomspris: 80kr");
                         }
                         else
                         {
-                            Console.WriteLine("Standardpris: 120kr");
+                        // Nästlad if-sats som kontrollerar pensionär
+                            if (ålder > 64)
+                            {
+                                Console.WriteLine("Pensionärspris: 90kr");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Standardpris: 120kr");
+                            }
                         }
                     }
-                    
+
                     break;
 
                 // Menyval 2 Räkna pris för ett helt sällskap
